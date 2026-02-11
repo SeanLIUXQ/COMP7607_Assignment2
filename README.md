@@ -1,179 +1,235 @@
-# COMP7607 Assignment 2
+# COMP7607 Assignment 2: Analysis of Prompting Strategies for Code Generation
 
-[English](#english) | [中文](#中文)
+[English](https://www.google.com/search?q=%23english) | [中文](https://www.google.com/search?q=%23中文)
 
----
-
-## English
-
-### 📋 Project Overview
-
-This repository contains the implementation for COMP7607 Assignment 2. The project focuses on [Brief description of what the assignment is about - please customize based on your actual project].
-
-### 🎯 Objectives
-
-- Objective 1: [Describe the main goal]
-- Objective 2: [Describe another goal]
-- Objective 3: [Describe another goal]
-
-### 🚀 Getting Started
-
-#### Prerequisites
-
-- Python 3.x (recommended version: 3.8+)
-- [List other dependencies]
-
-#### Installation
-
-1. Clone the repository:
-```bash
-git clone https://github.com/SeanLIUXQ/COMP7607_Assignment2.git
-cd COMP7607_Assignment2
-```
-
-2. Install required packages:
-```bash
-pip install -r requirements.txt
-```
-
-#### Usage
-
-```bash
-# Example command to run the project
-python main.py
-```
-
-### 📁 Project Structure
-
-```
-COMP7607_Assignment2/
-├── data/                 # Data files
-├── src/                  # Source code
-├── tests/                # Test files
-├── requirements.txt      # Python dependencies
-└── README.md            # This file
-```
-
-### 🔧 Features
-
-- Feature 1: [Description]
-- Feature 2: [Description]
-- Feature 3: [Description]
-
-### 📊 Results
-
-[Include key results, performance metrics, or visualizations]
-
-### 🤝 Contributing
-
-This is an academic assignment. If you have suggestions or find issues, please feel free to open an issue.
-
-### 📝 License
-
-This project is for academic purposes only.
-
-### 👤 Author
-
-- **Name**: Sean LIU
-- **GitHub**: [@SeanLIUXQ](https://github.com/SeanLIUXQ)
-
-### 🙏 Acknowledgments
-
-- Course: COMP7607
-- Institution: [Your University Name]
-- Instructor: [Instructor Name]
-
----
+------
 
 ## 中文
 
 ### 📋 项目概述
 
-本仓库包含 COMP7607 作业2的实现代码。该项目专注于[简要描述作业内容 - 请根据实际项目自定义]。
+本项目是 **COMP7607 Natural Language Processing (Fall 2025)** 课程 Assignment 2 的实现代码与分析报告 。
 
-### 🎯 目标
+本项目旨在深入探究 **提示工程（Prompt Engineering）** 对大型语言模型（LLM）在代码生成任务上性能的影响。实验基于 **HumanEval** 基准测试集，使用了 **Qwen3-8B** 模型，分析了提示词质量、复杂度、示例数量（Few-shot）以及多样性对代码生成准确率（Pass@1）的影响。
 
-- 目标1：[描述主要目标]
-- 目标2：[描述另一个目标]
-- 目标3：[描述另一个目标]
+此外，本项目还对比了两种推理策略：
 
-### 🚀 快速开始
+1. **Baseline Method**：直接基于提示词生成代码。
+2. **Combine Method**：引入了自我修正（Self-Refine）和基于单元测试反馈的修复循环（CodeT-style repair）。
 
-#### 环境要求
+### 🎯 实验维度 (Dimensions)
 
-- Python 3.x（推荐版本：3.8+）
-- [列出其他依赖项]
+根据作业要求，本项目实现了针对以下四个维度的对比实验：
 
-#### 安装步骤
-
-1. 克隆仓库：
-```bash
-git clone https://github.com/SeanLIUXQ/COMP7607_Assignment2.git
-cd COMP7607_Assignment2
-```
-
-2. 安装所需包：
-```bash
-pip install -r requirements.txt
-```
-
-#### 使用方法
-
-```bash
-# 运行项目的示例命令
-python main.py
-```
+1. **Prompt Quality (提示词质量)**
+   - `clean`: 标准、正确的描述与示例。
+   - `wrong_demo`: 包含故意错误的示例代码。
+   - `irrelevant_demo`: 包含正确但与当前任务无关的示例。
+   - `bad_instruction`: 包含误导性的自然语言指令。
+2. **Prompt Complexity (提示词复杂度)**
+   - `simple`: 极度简化的任务描述。
+   - `original`: 原始 HumanEval 描述。
+   - `detailed`: 包含额外约束和边界条件的详细描述。
+3. **Number of Demonstrations (示例数量)**
+   - $k \in \{0, 1, 2, 4\}$：比较 Zero-shot 与 Few-shot 的效果。
+4. **Prompt Diversity (提示词多样性)**
+   - `low`: 使用固定模板。
+   - `high`: 使用多种不同句式和结构的模板。
 
 ### 📁 项目结构
 
 ```
 COMP7607_Assignment2/
-├── data/                 # 数据文件
-├── src/                  # 源代码
-├── tests/                # 测试文件
-├── requirements.txt      # Python依赖
-└── README.md            # 本文件
+├── baseline_eval_results/      # Baseline 方法的评测结果 (.jsonl)
+├── combine_eval_results/       # Combine (Self-refine) 方法的评测结果
+├── baseline_eval_summaries/    # 结果摘要统计
+├── combine_eval_summaries/     # 结果摘要统计
+├── main_generate_baseline.py   # Baseline 方法的主生成脚本
+├── method_combine.py           # Combine 方法的主生成脚本 (Self-refine + Repair)
+├── evaluate_functional_correctness.py # 功能正确性评估脚本
+├── execution.py                # 代码执行沙箱/工具
+├── HumanEval.jsonl             # 数据集
+├── requirements.txt            # Python 依赖
+└── README.md                   # 说明文档
 ```
 
-### 🔧 功能特性
+### 🚀 快速开始
 
-- 功能1：[描述]
-- 功能2：[描述]
-- 功能3：[描述]
+#### 1. 环境准备
 
-### 📊 结果展示
+确保您的 Python 版本为 3.8+，并安装依赖：
 
-[包含关键结果、性能指标或可视化内容]
+Bash
 
-### 🤝 贡献
+```
+pip install -r requirements.txt
+```
 
-这是一个学术作业项目。如果您有建议或发现问题，请随时提出issue。
+#### 2. API 配置
 
-### 📝 许可证
+本项目支持 OpenAI 兼容格式的 API（如阿里云 Bailian/DashScope）。请在环境变量中设置您的 API Key：
 
-本项目仅用于学术目的。
+Bash
+
+```
+# Linux / macOS
+export OPENAI_API_KEY="sk-xxxxxxxxxxxxxxxx"
+export BASE_URL="https://dashscope.aliyuncs.com/compatible-mode/v1"
+export MODEL_NAME="qwen3-8b" # 或其他您使用的模型
+
+# Windows (PowerShell)
+$env:OPENAI_API_KEY="sk-xxxxxxxxxxxxxxxx"
+```
+
+### 💻 使用方法 (Usage)
+
+脚本 `main_generate_baseline.py` 支持通过命令行参数控制实验变量。
+
+#### 通用参数
+
+- `--exp_family`: 实验维度 (`quality`, `complexity`, `num_demos`, `diversity`, `none`)。
+- `--condition`: 具体条件 (如 `clean`, `simple` 等)。
+- `--num_demos`: 示例数量 (仅在 `num_demos` 实验下生效)。
+- `--diversity_mode`: 多样性模式 (`low`, `high`)。
+- `--max_samples`: 测试样本数量 (默认为 80)。
+
+#### 运行示例
+
+**1. 运行 Baseline 默认设置 (Original, k=0)**
+
+Bash
+
+```
+python main_generate_baseline.py --exp_family none
+```
+
+**2. 实验：提示词质量 (Prompt Quality)**
+
+Bash
+
+```
+# 测试包含错误示例的情况
+python main_generate_baseline.py --exp_family quality --condition wrong_demo
+```
+
+**3. 实验：提示词复杂度 (Prompt Complexity)**
+
+Bash
+
+```
+# 测试简化描述的情况
+python main_generate_baseline.py --exp_family complexity --condition simple
+```
+
+**4. 实验：示例数量 (Number of Demonstrations)**
+
+Bash
+
+```
+# 4-shot learning
+python main_generate_baseline.py --exp_family num_demos --num_demos 4
+```
+
+**5. 运行 Combine (Self-Refine) 方法**
+
+*(假设 method_combine.py 接受类似的参数结构)*
+
+Bash
+
+```
+python method_combine.py --exp_family quality --condition clean
+```
+
+#### 评估结果
+
+生成完成后，使用评估脚本计算 Pass@1 准确率：
+
+Bash
+
+```
+python evaluate_functional_correctness.py --sample_file baseline_eval_results/baseline_A2_default.jsonl
+```
+
+### 📊 关键结论 (Key Findings)
+
+基于实验报告的分析，主要发现如下：
+
+1. **复杂度至关重要**：提示词的详细程度对性能影响最大。过度简化的描述 (`simple`) 会导致准确率大幅下降（从 ~87% 降至 ~55%）。
+2. **自我修正的有效性**：Combine 方法（Self-Correction）在大多数情况下都能提升 Baseline 的性能（平均提升约 5%），特别是在初始提示词存在噪音（如错误示例）时表现出更强的鲁棒性。
+3. **示例数量的边际递减**：增加示例数量（Few-shot）在 $k=1$ 时达到峰值，继续增加示例 ($k=2, 4$) 并没有带来显著的线性提升，甚至可能引入干扰。
+4. **多样性影响较小**：改变提示词的句式和结构（Diversity）对最终代码生成的准确率影响微乎其微。
 
 ### 👤 作者
 
-- **姓名**：Sean LIU
-- **GitHub**：[@SeanLIUXQ](https://github.com/SeanLIUXQ)
+- **Name**: Sean LIU
+- **Course**: COMP7607 @ HKU
+- **Report**: [Analysis of Prompting Strategies for Coding.docx](https://www.google.com/search?q=./Analysis%20of%20Prompting%20Strategies%20for%20Coding.docx)
 
-### 🙏 致谢
+------
 
-- 课程：COMP7607
-- 院校：[您的大学名称]
-- 授课教师：[教师姓名]
+## English
 
----
+### 📋 Project Overview
 
-### 📧 Contact / 联系方式
+This repository contains the implementation for **COMP7607 Assignment 2**, focusing on the **Analysis of Prompting Strategies for Coding**.
 
-If you have any questions, please feel free to contact me.
 
-如有任何问题，请随时与我联系。
 
----
+We explore how different prompt factors affect the reasoning and code generation capabilities of LLMs (specifically **Qwen3-8B**) using the **HumanEval** benchmark. Furthermore, we compare a standard **Baseline** method against a **Combine** method that utilizes self-refinement and test-based repair.
 
-**Note / 注意**: Please customize this README according to your specific project requirements.
+### 🎯 Experimental Dimensions
 
-**注意**：请根据您的具体项目需求自定义此README文件。
+As per the assignment requirements, we analyze four key dimensions:
+
+1. **Prompt Quality**: `clean`, `wrong_demo`, `irrelevant_demo`, `bad_instruction`.
+2. **Prompt Complexity**: `simple`, `original`, `detailed`.
+3. **Number of Demonstrations**: $k \in \{0, 1, 2, 4\}$.
+4. **Prompt Diversity**: `low` vs. `high`.
+
+### 🚀 Getting Started
+
+1. **Install Dependencies**:
+
+   Bash
+
+   ```
+   pip install -r requirements.txt
+   ```
+
+2. **Set API Key**:
+
+   Bash
+
+   ```
+   export OPENAI_API_KEY="your-api-key"
+   export MODEL_NAME="qwen3-8b"
+   ```
+
+### 💻 Usage
+
+Run the baseline generation script with specific experiment parameters:
+
+Bash
+
+```
+# 1. Baseline (Default)
+python main_generate_baseline.py --exp_family none
+
+# 2. Experiment: Quality (e.g., Wrong Demo)
+python main_generate_baseline.py --exp_family quality --condition wrong_demo
+
+# 3. Experiment: Complexity (e.g., Simple)
+python main_generate_baseline.py --exp_family complexity --condition simple
+
+# 4. Experiment: Num Demos (e.g., k=2)
+python main_generate_baseline.py --exp_family num_demos --num_demos 2
+```
+
+### 📊 Results Summary
+
+- **Specification Quality dominates**: Simplistic prompts drastically reduce performance.
+- **Self-Correction works**: The Combine method consistently improves over the baseline, especially recovering from noisy prompts.
+- **Few-shot saturation**: Performance peaks around $k=1$; adding more shots provides diminishing returns.
+- **Diversity is secondary**: Paraphrasing prompts has minimal impact compared to content quality.
+
+For full details, please refer to the report: `Analysis of Prompting Strategies for Coding.docx`.
