@@ -163,7 +163,7 @@ python evaluate_functional_correctness.py --sample_file baseline_eval_results/ba
 
 - **Name**: Sean LIU
 - **Course**: COMP7607 @ HKU
-- **Report**: [Analysis of Prompting Strategies for Coding.docx](https://www.google.com/search?q=./Analysis%20of%20Prompting%20Strategies%20for%20Coding.docx)
+- **Report**: Analysis of Prompting Strategies for Coding.docx
 
 ------
 
