@@ -1,6 +1,6 @@
 # COMP7607 Assignment 2: Analysis of Prompting Strategies for Code Generation
 
-[English](https://github.com/SeanLIUXQ/COMP7607_Assignment2?tab=readme-ov-file#english) | [中文](https://github.com/SeanLIUXQ/COMP7607_Assignment2?tab=readme-ov-file#%E4%B8%AD%E6%96%87https://www.google.com/search?q=%23中文)
+[English](https://github.com/SeanLIUXQ/COMP7607_Assignment2?tab=readme-ov-file#english) | [中文](https://github.com/SeanLIUXQ/COMP7607_Assignment2/tree/main?tab=readme-ov-file#%E4%B8%AD%E6%96%87)
 
 ------
 
