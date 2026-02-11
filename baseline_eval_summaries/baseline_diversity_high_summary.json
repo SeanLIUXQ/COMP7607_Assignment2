@@ -1,0 +1,16 @@
+{
+  "total_samples": 80,
+  "passed": 71,
+  "accuracy(%)": 88.75,
+  "avg_exec_time_s": 0.50779,
+  "avg_prompt_tokens": 175.175,
+  "avg_completion_tokens": 50.675,
+  "total_prompt_tokens": 14014,
+  "total_completion_tokens": 4054,
+  "total_tokens_used": 18068,
+  "pass@k": {
+    "pass@1": 0.8875
+  },
+  "results_file": "baseline_diversity_high.jsonl_results.jsonl",
+  "total_runtime_s": 10.18943
+}

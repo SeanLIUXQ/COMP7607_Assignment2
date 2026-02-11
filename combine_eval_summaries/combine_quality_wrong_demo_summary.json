@@ -1,0 +1,14 @@
+{
+  "total_samples": 80,
+  "passed": 76,
+  "accuracy": 0.95,
+  "avg_exec_time": 0.5021546065807343,
+  "avg_prompt_tokens": 391.7875,
+  "avg_completion_tokens": 81.0125,
+  "total_tokens_used": 37824,
+  "total_runtime": 10.163296937942505,
+  "pass@k": {
+    "pass@1": 0.95
+  },
+  "results_file": "combine_eval_results\\combine_quality_wrong_demo_results.jsonl"
+}

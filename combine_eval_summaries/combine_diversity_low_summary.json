@@ -1,0 +1,14 @@
+{
+  "total_samples": 80,
+  "passed": 73,
+  "accuracy": 0.9125,
+  "avg_exec_time": 0.46935713291168213,
+  "avg_prompt_tokens": 205.95,
+  "avg_completion_tokens": 69.3875,
+  "total_tokens_used": 22027,
+  "total_runtime": 9.65228533744812,
+  "pass@k": {
+    "pass@1": 0.9125
+  },
+  "results_file": "combine_eval_results\\combine_diversity_low_results.jsonl"
+}

@@ -1,0 +1,16 @@
+{
+  "total_samples": 80,
+  "passed": 70,
+  "accuracy(%)": 87.5,
+  "avg_exec_time_s": 0.47619,
+  "avg_prompt_tokens": 168.9375,
+  "avg_completion_tokens": 55.7,
+  "total_prompt_tokens": 13515,
+  "total_completion_tokens": 4456,
+  "total_tokens_used": 17971,
+  "pass@k": {
+    "pass@1": 0.875
+  },
+  "results_file": "baseline_complexity_original.jsonl_results.jsonl",
+  "total_runtime_s": 9.80559
+}
